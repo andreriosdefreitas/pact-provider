@@ -1,16 +1,15 @@
 package com.example.provider.http.controller
 
 import au.com.dius.pact.provider.junit5.PactVerificationContext
-import au.com.dius.pact.provider.junitsupport.IgnoreNoPactsToVerify
 import au.com.dius.pact.provider.junitsupport.Provider
 import au.com.dius.pact.provider.junitsupport.State
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker
-import au.com.dius.pact.provider.spring.junit5.PactVerificationSpringProvider
+import au.com.dius.pact.provider.junitsupport.loader.PactFolder
+import au.com.dius.pact.provider.spring.spring6.PactVerificationSpring6Provider
 import com.example.provider.http.controller.api.request.CreatePersonRequest
 import com.example.provider.http.controller.api.response.CreatePersonResponse
 import org.junit.jupiter.api.TestTemplate
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.Mock
 import org.mockito.Mockito
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -22,13 +21,13 @@ import java.util.*
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Provider("provider-api")
 @PactBroker
-@IgnoreNoPactsToVerify
+@PactFolder("pacts")
+//@IgnoreNoPactsToVerify
 @ActiveProfiles("test")
 class PersonControllerContractTest {
 
     @MockBean
     private lateinit var personController: PersonController
-
     private val personId = "13bb5352-303a-485e-a75b-6b1a97727cde"
     private val firstName = "First"
     private val lastName = "Last"
@@ -37,7 +36,7 @@ class PersonControllerContractTest {
     private val personResponse = CreatePersonResponse(UUID.fromString(personId), firstName, lastName, email)
 
     @TestTemplate
-    @ExtendWith(PactVerificationSpringProvider::class)
+    @ExtendWith(PactVerificationSpring6Provider::class)
     fun pactVerificationTestTemplate(context: PactVerificationContext?) {
         context?.verifyInteraction()
     }

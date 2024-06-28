@@ -1,9 +1,15 @@
+
+import au.com.dius.pact.provider.gradle.GradleConsumerInfo
+import groovy.lang.Closure
+import java.io.ByteArrayOutputStream
+import java.util.function.Supplier
+
 plugins {
 	id("org.springframework.boot") version "3.2.6"
 	id("io.spring.dependency-management") version "1.1.5"
 	kotlin("jvm") version "1.9.24"
 	kotlin("plugin.spring") version "1.9.24"
-	id("au.com.dius.pact") version "4.6.9"
+	id("au.com.dius.pact") version "4.3.10"
 }
 
 group = "com.example"
@@ -26,8 +32,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	testImplementation("au.com.dius.pact.provider:junit5spring:4.6.9")
-	implementation("au.com.dius.pact.provider:gradle:4.6.9")
+	testImplementation("au.com.dius.pact.provider:spring6:4.6.10")
+	testImplementation("au.com.dius.pact.provider:gradle:4.6.10")
 }
 
 kotlin {
@@ -38,13 +44,15 @@ kotlin {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	systemProperty("pact.provider.version", getGitHash())
+	systemProperty("pact.verifier.publishResults", true)
 }
 
-pact {
-	broker {
-		pactBrokerUrl = "http://localhost:9292/"
+fun getGitHash(): String {
+	val stdout = ByteArrayOutputStream()
+	exec {
+		commandLine = listOf("git", "rev-parse", "--short", "HEAD")
+		standardOutput = stdout
 	}
-	publish {
-		pactBrokerUrl = "http://localhost:9292/"
-	}
+	return stdout.toString().trim()
 }
