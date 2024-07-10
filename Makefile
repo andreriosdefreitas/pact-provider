@@ -53,6 +53,7 @@ fake_ci_webhook:
 test: .env
 	@echo "\n========== STAGE: test (pact) ==========\n"
 	./gradlew build
+	./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
 
 ## =====================
 ## Deploy tasks
