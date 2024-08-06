@@ -1,3 +1,4 @@
 pactbroker:
-    url: http://localhost:9292
+    url: ${PACT_BROKER_URL:http://localhost:9292}
+    token: $PACT_BROKER_TOKEN
     host: localhost
