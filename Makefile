@@ -1,4 +1,5 @@
 PACTICIPANT := "provider-api"
+PACT_BROKER_URL := ${PACT_BROKER_URL}
 GITHUB_REPO := "andreriosdefreitas/pact-provider"
 PACT_CHANGED_WEBHOOK_UUID := "c76b601e-d66a-4eb1-88a4-6ebc50c0df8b"
 CONTRACT_REQUIRING_VERIFICATION_PUBLISHED_WEBHOOK_UUID := "8ce63439-6b70-4e9b-8891-703d5ea2953c"
@@ -52,7 +53,7 @@ fake_ci_webhook:
 
 test: .env
 	@echo "\n========== STAGE: test (pact) ==========\n"
-	@echo ${PACT_BROKER_URL}
+	@echo $(PACT_BROKER_URL)
 	./gradlew build
 	##./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
 
