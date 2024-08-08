@@ -1,4 +1,5 @@
 pactbroker:
     url: ${PACT_BROKER_URL}
-    token: ${PACT_BROKER_TOKEN}
+    auth:
+        token: ${PACT_BROKER_TOKEN}
     host: localhost
