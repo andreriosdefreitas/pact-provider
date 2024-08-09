@@ -69,6 +69,7 @@ no_deploy:
 	@echo "Not deploying as not on master branch"
 
 can_i_deploy: .env
+	@echo "Can I deploy?"
 	"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
 
 deploy_app:
