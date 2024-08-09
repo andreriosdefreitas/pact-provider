@@ -73,7 +73,7 @@ deploy_app:
 	@echo "Deploying to ${ENVIRONMENT}"
 
 record_deployment: .env
-	@echo $(GIT_COMMIT)
+	@echo $(shell git rev-parse --short HEAD)
 	@"${PACT_CLI}" broker record_deployment --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --environment ${ENVIRONMENT} --broker-base-url ${PACT_BROKER_URL}
 
 ## =====================
