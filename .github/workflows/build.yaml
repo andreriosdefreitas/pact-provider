@@ -19,14 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4.2.2
         with:
           distribution: 'zulu'
           java-version: '21'
           cache: 'gradle'
 
       - name: Run tests
-        run: make test
+        run: make test can_i_deploy
 
 #  # Runs on branches as well, so we know the status of our PRs
 #  can-i-deploy:
