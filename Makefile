@@ -1,9 +1,10 @@
 PACTICIPANT := "provider-api"
 PACT_BROKER_URL := ${PACT_BROKER_URL}
+PACT_BROKER_TOKEN:= ${PACT_BROKER_TOKEN}
 GITHUB_REPO := "andreriosdefreitas/pact-provider"
 PACT_CHANGED_WEBHOOK_UUID := "c76b601e-d66a-4eb1-88a4-6ebc50c0df8b"
 CONTRACT_REQUIRING_VERIFICATION_PUBLISHED_WEBHOOK_UUID := "8ce63439-6b70-4e9b-8891-703d5ea2953c"
-PACT_CLI="docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL -e PACT_BROKER_TOKEN pactfoundation/pact-cli"
+PACT_CLI="docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_URL -e PACT_BROKER_TOKEN pactfoundation/pact-cli"
 
 .EXPORT_ALL_VARIABLES:
 GIT_COMMIT?=$(shell git rev-parse HEAD)
@@ -55,7 +56,8 @@ test: .env
 	@echo "\n========== STAGE: test (pact) ==========\n"
 	@echo $(PACT_BROKER_URL)
 	./gradlew build
-	./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
+	can_i_deploy
+	#./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
 
 ## =====================
 ## Deploy tasks
