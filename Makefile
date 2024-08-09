@@ -55,7 +55,7 @@ test: .env
 	@echo "\n========== STAGE: test (pact) ==========\n"
 	@echo $(PACT_BROKER_URL)
 	./gradlew build
-	##./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
+	./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
 
 ## =====================
 ## Deploy tasks
