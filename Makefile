@@ -7,7 +7,7 @@ CONTRACT_REQUIRING_VERIFICATION_PUBLISHED_WEBHOOK_UUID := "8ce63439-6b70-4e9b-88
 PACT_CLI="docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_URL -e PACT_BROKER_TOKEN pactfoundation/pact-cli"
 
 .EXPORT_ALL_VARIABLES:
-GIT_COMMIT?=$(shell git rev-parse HEAD)
+GIT_COMMIT?=$(shell git rev-parse --short HEAD)
 GIT_BRANCH?=$(shell git rev-parse --abbrev-ref HEAD)
 ENVIRONMENT?=Staging
 
