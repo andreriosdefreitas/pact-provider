@@ -5,7 +5,7 @@ GITHUB_REPO := "andreriosdefreitas/pact-provider"
 PACT_CHANGED_WEBHOOK_UUID := "c76b601e-d66a-4eb1-88a4-6ebc50c0df8b"
 CONTRACT_REQUIRING_VERIFICATION_PUBLISHED_WEBHOOK_UUID := "8ce63439-6b70-4e9b-8891-703d5ea2953c"
 PACT_CLI="docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_URL -e PACT_BROKER_TOKEN pactfoundation/pact-cli"
-GIT_COMMIT?=$(shell git rev-parse --short HEAD)
+VERSION?=$(shell git rev-parse --short HEAD)
 GIT_BRANCH?=$(shell git rev-parse --abbrev-ref HEAD)
 ENVIRONMENT?=Staging
 
@@ -54,7 +54,7 @@ test: .env
 	@echo "\n========== STAGE: test (pact) ==========\n"
 	@echo $(PACT_BROKER_URL)
 	./gradlew build
-	#./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
+	#./gradlew canIDeploy --pacticipant ${PACTICIPANT} --version ${VERSION} --to-environment ${ENVIRONMENT}
 
 ## =====================
 ## Deploy tasks
@@ -67,13 +67,13 @@ no_deploy:
 
 can_i_deploy: .env
 	@echo "Can I deploy?"
-	"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT} --broker-base-url ${PACT_BROKER_URL}
+	"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${VERSION} --to-environment ${ENVIRONMENT} --broker-base-url ${PACT_BROKER_URL}
 
 deploy_app:
 	@echo "Deploying to ${ENVIRONMENT}"
 
 record_deployment: .env
-	@"${PACT_CLI}" broker record_deployment --pacticipant ${PACTICIPANT} --version ${shell git rev-parse --short HEAD} --environment ${ENVIRONMENT} --broker-base-url ${PACT_BROKER_URL}
+	@"${PACT_CLI}" broker record_deployment --pacticipant ${PACTICIPANT} --version ${VERSION} --environment ${ENVIRONMENT} --broker-base-url ${PACT_BROKER_URL}
 
 ## =====================
 ## PactFlow set up tasks
