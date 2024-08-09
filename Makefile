@@ -69,7 +69,7 @@ no_deploy:
 
 can_i_deploy: .env
 	@echo "Can I deploy?"
-	"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT}
+	"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --to-environment ${ENVIRONMENT} --broker-base-url ${PACT_BROKER_URL}
 
 deploy_app:
 	@echo "Deploying to ${ENVIRONMENT}"
