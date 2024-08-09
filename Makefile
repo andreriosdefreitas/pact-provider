@@ -75,7 +75,7 @@ deploy_app:
 	@echo "Deploying to ${ENVIRONMENT}"
 
 record_deployment: .env
-	@"${PACT_CLI}" broker record_deployment --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --environment ${ENVIRONMENT}
+	@"${PACT_CLI}" broker record_deployment --pacticipant ${PACTICIPANT} --version ${GIT_COMMIT} --environment ${ENVIRONMENT} --broker-base-url ${PACT_BROKER_URL}
 
 ## =====================
 ## PactFlow set up tasks
