@@ -33,7 +33,7 @@ class PersonControllerContractTest {
     private val lastName = "Last"
     private val email = "Email"
     private val personRequest = CreatePersonRequest(firstName, lastName, email)
-    private val personResponse = CreatePersonResponse(UUID.fromString(personId), firstName, lastName, email)
+    private val personResponse = CreatePersonResponse(UUID.fromString(personId), firstName, lastName, email, null)
 
     @TestTemplate
     @ExtendWith(PactVerificationSpring6Provider::class)

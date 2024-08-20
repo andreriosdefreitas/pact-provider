@@ -23,6 +23,7 @@ class PersonController {
         id = UUID.randomUUID(),
         firstName = this.firstName,
         lastName = this.lastName,
-        email = this.email
+        email = this.email,
+        age = 0
     )
 }
